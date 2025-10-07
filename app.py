@@ -33,7 +33,7 @@ import fitz  # PyMuPDF
 
 DATA_DIR = Path("data")
 PDF_FILE = DATA_DIR / "research_paper.pdf"  # Place your PDF here
-LLM_MODEL_PATH = "models/mistral-7b-instruct-v0.2.Q4_K_M.gguf"  # Path to GGUF model -> https://huggingface.co/TheBloke/phi-2-GGUF/blob/main/phi-2.Q5_K_S.gguf
+LLM_MODEL_PATH = "models/phi-2.Q5_K_S.gguf"  # Path to GGUF model -> https://huggingface.co/TheBloke/phi-2-GGUF/blob/main/phi-2.Q5_K_S.gguf
 
 # Embedding & Vision-Language Models (cached)
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
