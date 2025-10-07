@@ -149,18 +149,18 @@ def setup_rag_chain(documents: list[Document]):
     # --- Load Llama Model ---
     llm = LlamaCpp(
         model_path=str(LLM_MODEL_PATH),
-        temperature=0.4,
-        top_p=0.9,
-        repeat_penalty=1.2,
-        max_tokens=3072,
-        n_ctx=2048,
-        n_batch=256,
-        n_gpu_layers=0,
-        n_threads=(os.cpu_count() - 1) if os.cpu_count() > 1 else 1,
+        temperature=0.35,       # ✅ balanced: factual but not dry
+        top_p=0.92,             # keeps diversity slightly higher without chaos
+        repeat_penalty=1.15,    # prevents repetitive phrasing
+        max_tokens=3072,        # large enough for structured summaries
+        n_ctx=4096,             # if your model supports it (increases context window)
+        n_batch=256,            # fine balance between speed and stability
+        n_gpu_layers=0,        # ✅ use GPU acceleration if available
+        n_threads=max(1, os.cpu_count() - 1),
         verbose=False,
         model_kwargs={
-            "frequency_penalty": 0.6,
-            "presence_penalty": 0.4,
+            "frequency_penalty": 0.4,  # discourage repeating same ideas
+            "presence_penalty": 0.3,   # encourage new points slightly
         }
     )
 
