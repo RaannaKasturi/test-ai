@@ -153,7 +153,7 @@ def setup_rag_chain(documents: list[Document]):
         top_p=0.92,             # keeps diversity slightly higher without chaos
         repeat_penalty=1.15,    # prevents repetitive phrasing
         max_tokens=3072,        # large enough for structured summaries
-        n_ctx=4096,             # if your model supports it (increases context window)
+        n_ctx=2048,             # if your model supports it (increases context window)
         n_batch=256,            # fine balance between speed and stability
         n_gpu_layers=0,         # ✅ use GPU acceleration if available
         n_threads=max(1, os.cpu_count() - 1),
