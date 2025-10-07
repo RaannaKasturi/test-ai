@@ -149,20 +149,17 @@ def setup_rag_chain(documents: list[Document]):
     # --- Load Llama Model ---
     llm = LlamaCpp(
         model_path=str(LLM_MODEL_PATH),
-        temperature=0.7,
+        temperature=0.4,
         top_p=0.9,
         repeat_penalty=1.2,
         max_tokens=3072,
         n_ctx=2048,
         n_batch=256,
-        n_gpu_layers=-1,
+        n_gpu_layers=0,
         n_threads=(os.cpu_count() - 1) if os.cpu_count() > 1 else 1,
         verbose=False,
-        use_mmap=True,
-        use_mlock=False,
         model_kwargs={
             "frequency_penalty": 0.6,
-            "backend": "clblast",
             "presence_penalty": 0.4,
         }
     )
