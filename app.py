@@ -155,13 +155,13 @@ def setup_rag_chain(documents: list[Document]):
         max_tokens=3072,
         n_ctx=2048,
         n_batch=256,
-        n_gpu_layers=0,
+        n_gpu_layers=-1,  # ✅ Use all layers on GPU (Intel GPU if supported)
         n_threads=(os.cpu_count() - 1) if os.cpu_count() > 1 else 1,
         verbose=False,
-        model_kwargs={
-            "frequency_penalty": 0.6,
-            "presence_penalty": 0.4,
-        }
+        use_mmap=True,
+        use_mlock=False,
+        # Use Intel GPU backend explicitly
+        backend="clblast",  # OpenCL backend (works with Intel GPU)
     )
 
     # --- Load Embeddings ---
