@@ -16,8 +16,7 @@ REM Install dependencies
 pip install llama-cpp-python langchain-community langchain-huggingface faiss-cpu transformers pillow pymupdf torch accelerate
 
 echo ==========================================
-echo ✅ CPU Environment setup complete!
-echo To activate later, run:
-echo    call .venv\Scripts\activate
+echo CPU Environment setup complete!
+echo Environment is now active.
 echo ==========================================
-pause
+cmd /k ".venv\Scripts\activate"

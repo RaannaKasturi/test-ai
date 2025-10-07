@@ -23,7 +23,6 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 echo ==========================================
 echo ✅ GPU (NVIDIA CUDA) Environment setup complete!
-echo To activate later, run:
-echo    call .venv\Scripts\activate
+echo Environment is now active.
 echo ==========================================
-pause
+cmd /k ".venv\Scripts\activate"
