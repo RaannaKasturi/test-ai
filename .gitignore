@@ -1,0 +1,5 @@
+/models
+/.venv
+/faiss_index
+/embeddings
+/blip
