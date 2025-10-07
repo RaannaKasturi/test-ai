@@ -17,6 +17,7 @@ pip install pillow pymupdf accelerate
 
 echo Installing LangChain components...
 pip install langchain-community langchain-huggingface faiss-cpu
+pip install openvino-dev optimum[openvino]
 
 echo Installing Transformers and Torch (CPU)
 pip install transformers torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
