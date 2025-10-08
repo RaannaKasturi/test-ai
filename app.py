@@ -156,7 +156,7 @@ def setup_rag_chain(documents: list[Document]):
         n_ctx=2048,             # if your model supports it (increases context window)
         n_batch=256,            # fine balance between speed and stability
         n_gpu_layers=0,         # ✅ use GPU acceleration if available
-        n_threads=max(1, os.cpu_count() - 1),
+        n_threads=os.cpu_count() - 1,
         verbose=False,
         model_kwargs={
             "frequency_penalty": 0.4,  # discourage repeating same ideas
@@ -227,7 +227,7 @@ def setup_rag_chain(documents: list[Document]):
         chain_type_kwargs={"prompt": prompt},
     )
 
-    print("✅ RAG chain initialized successfully.")
+    print("\t4. RAG chain initialized successfully.")
     return rag_chain
 
 # ============================================================
@@ -252,7 +252,7 @@ if __name__ == "__main__":
         rag_chain = setup_rag_chain(documents)
 
         # Step 4: Run query
-        print("\n5. Running Multimodal RAG Query...")
+        print("\t5. Running Multimodal RAG Query...")
         query = (
             "Summarize the provided document and generate a structured Markdown report with:\n"
             "1. A single concise summary paragraph.\n"
