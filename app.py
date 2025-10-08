@@ -74,7 +74,7 @@ def ingestion_pipeline(pdf_path: Path, captioner: BlipCaptioner):
     temp_dir = DATA_DIR / "temp_images"
     os.makedirs(temp_dir, exist_ok=True)
 
-    print("1. Extracting text and images from PDF using PyMuPDF...")
+    print("\t1. Extracting text and images from PDF using PyMuPDF...")
     all_docs = []
     text_content = []
 
@@ -110,7 +110,7 @@ def ingestion_pipeline(pdf_path: Path, captioner: BlipCaptioner):
 
     # --- Caption Images ---
     image_paths = [temp_dir / f for f in os.listdir(temp_dir) if f.lower().endswith((".png", ".jpg", ".jpeg"))]
-    print(f"2. Generating captions for {len(image_paths)} images...")
+    print(f"\t2. Generating captions for {len(image_paths)} images...")
     
     saved_img_dir = Path("saved_figures")
     saved_img_dir.mkdir(exist_ok=True)
@@ -144,7 +144,7 @@ from pathlib import Path
 
 def setup_rag_chain(documents: list[Document]):
     """Creates a LangChain RAG pipeline using LlamaCpp and FAISS."""
-    print("\n3. Initializing LlamaCpp and FAISS...")
+    print("\t3. Initializing LlamaCpp and FAISS...")
 
     # --- Load Llama Model ---
     llm = LlamaCpp(
@@ -183,13 +183,13 @@ def setup_rag_chain(documents: list[Document]):
             allow_dangerous_deserialization=True
         )
     else:
-        print("4. Building new FAISS vector store from documents...")
+        print("\t4. Building new FAISS vector store from documents...")
         vectorstore = FAISS.from_documents(documents, embeddings)
         vectorstore.save_local(str(faiss_dir))
-        print(f"✅ FAISS index saved successfully at: {faiss_dir}")
+        print(f"FAISS index saved successfully at: {faiss_dir}")
 
     # --- Build Retriever ---
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 3})  # smaller context for speed
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 5})  # smaller context for speed
 
     # --- Define Custom Prompt ---
     prompt = PromptTemplate(
@@ -238,9 +238,9 @@ if __name__ == "__main__":
     import time
     start_time = time.time()
     if not PDF_FILE.exists():
-        print(f"❌ ERROR: PDF file not found at {PDF_FILE}. Please place your 'research_paper.pdf' in the 'data' folder.")
+        print(f"ERROR: PDF file not found at {PDF_FILE}. Please place your 'research_paper.pdf' in the 'data' folder.")
     elif not os.path.exists(LLM_MODEL_PATH):
-        print(f"❌ ERROR: LLM model not found at {LLM_MODEL_PATH}. Please download your GGUF file and rename it accordingly.")
+        print(f"ERROR: LLM model not found at {LLM_MODEL_PATH}. Please download your GGUF file and rename it accordingly.")
     else:
         # Step 1: Initialize captioner
         blip_captioner = BlipCaptioner(BLIP_MODEL_NAME)
@@ -269,9 +269,9 @@ if __name__ == "__main__":
             del rag_chain.llm
             import gc
             gc.collect()
-            print("🧹 LlamaCpp model cleaned up safely.")
+            print("LlamaCpp model cleaned up safely.")
         except Exception:
             pass
         end_time = time.time()
-        print(f"\n⏱️ Total execution time: {end_time - start_time:.2f} seconds")
+        print(f"Total execution time: {end_time - start_time:.2f} seconds")
 

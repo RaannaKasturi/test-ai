@@ -1,0 +1,1 @@
+- supports Intel iGPU (oneAPI / OpenCL)
